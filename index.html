@@ -123,6 +123,14 @@
   .pc-feats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
   .pc-feats span{font-size:12.5px;font-weight:600;color:var(--ink);padding:6px 12px;border-radius:9px;background:rgba(255,255,255,.045);border:1px solid var(--line);}
   html.light .pc-feats span{background:rgba(0,0,0,.03);}
+  /* 7일 무료 배너 */
+  .freebar{display:flex;align-items:center;gap:13px;margin-bottom:20px;padding:14px 16px;border-radius:14px;
+    background:linear-gradient(100deg,rgba(255,90,60,.14),rgba(240,65,122,.14));border:1px solid rgba(255,90,60,.3);position:relative;overflow:hidden;}
+  .freebar::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);animation:sheen 3.2s ease-in-out infinite;}
+  @keyframes sheen{0%{left:-60%;}55%,100%{left:120%;}}
+  .free-ic{font-size:22px;flex-shrink:0;}
+  .freebar b{display:block;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.01em;}
+  .freebar em{display:block;font-style:normal;font-size:12px;color:var(--sub);font-weight:600;margin-top:2px;}
   .dl-row{display:flex;flex-direction:column;gap:9px;}
   .dl-btn{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:13px;text-decoration:none;font-weight:700;font-size:14.5px;color:var(--ink);border:1px solid var(--line);background:rgba(255,255,255,.03);transition:.2s;}
   html.light .dl-btn{background:rgba(0,0,0,.02);}
@@ -148,6 +156,25 @@
   .note{max-width:720px;margin:60px auto 0;padding:22px 26px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-size:13.5px;color:var(--sub);line-height:1.8;}
   .note b{color:var(--ink);}
 
+  /* ─ 떠다니는 마스코트(펄리) = 카톡 문의 ─ */
+  .buddy{position:fixed;right:26px;bottom:26px;z-index:50;width:96px;height:112px;cursor:pointer;border:none;background:none;padding:0;
+    filter:drop-shadow(0 14px 26px rgba(240,65,122,.45));animation:floaty 3.4s ease-in-out infinite;transition:transform .18s;}
+  .buddy:hover{transform:scale(1.08);}
+  .buddy:active{transform:scale(.94);}
+  .buddy.hop{animation:hop .6s cubic-bezier(.28,1.4,.5,1);}
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-14px) rotate(2deg);}}
+  @keyframes hop{0%{transform:translateY(0) scale(1);}30%{transform:translateY(-46px) scale(1.12,.9);}60%{transform:translateY(6px) scale(.92,1.1);}100%{transform:translateY(0) scale(1);}}
+  .buddy .eye{transform-origin:center;animation:blinkeye 4.2s infinite;}
+  @keyframes blinkeye{0%,94%,100%{transform:scaleY(1);}97%{transform:scaleY(.1);}}
+  /* 말풍선 */
+  .buddy-tip{position:fixed;right:30px;bottom:146px;z-index:50;background:linear-gradient(100deg,var(--ember),var(--pink));color:#fff;
+    font-size:13px;font-weight:800;padding:9px 14px;border-radius:14px 14px 4px 14px;box-shadow:0 10px 26px rgba(240,65,122,.4);
+    opacity:0;transform:translateY(8px) scale(.9);transition:.25s;pointer-events:none;white-space:nowrap;}
+  .buddy-tip.show{opacity:1;transform:translateY(0) scale(1);}
+  .heart{position:fixed;z-index:49;font-size:22px;pointer-events:none;animation:heartup 1s ease-out forwards;}
+  @keyframes heartup{0%{opacity:1;transform:translate(0,0) scale(.6) rotate(0);}100%{opacity:0;transform:translate(var(--hx),-90px) scale(1.3) rotate(var(--hr));}}
+  @media(max-width:600px){.buddy{width:76px;height:90px;right:16px;bottom:16px;}.buddy-tip{bottom:118px;right:18px;}}
+
   footer{text-align:center;padding:70px 26px 50px;color:var(--sub);font-size:12.5px;}
   footer .fl{font-family:'Bricolage Grotesque';font-weight:800;font-size:16px;color:var(--ink);letter-spacing:-.02em;margin-bottom:8px;}
 </style>
@@ -157,7 +184,7 @@
   <div class="grain"></div>
 
   <nav>
-    <div class="logo" id="logo" title=""><span class="mark">P</span> PUBLY</div>
+    <div class="logo"><span class="mark">P</span> PUBLY</div>
     <div class="nav-right">
       <a class="ghlink" href="#products">제품 보기</a>
       <button class="themebtn" id="theme" title="테마 전환">☀️</button>
@@ -170,7 +197,7 @@
     <p class="lead">키워드 하나만 넣으면 <b>AI가 제목·글·이미지·발행까지</b> 알아서. 그리고 검색 순위를 끌어올리는 <b>진짜 트래픽</b>까지. 손 대지 않아도 성장하는 블로그·플레이스·스토어.</p>
     <div class="hero-cta">
       <a class="cta-primary" href="#products">⬇ 지금 다운로드</a>
-      <a class="cta-ghost" href="#video">▶ 어떻게 작동하나요</a>
+      <a class="cta-ghost" href="https://open.kakao.com/o/s5wAJ1Li" target="_blank" rel="noreferrer">💬 결제 · 사용 문의</a>
     </div>
 
     <div class="video-stage" id="video">
@@ -182,9 +209,9 @@
     </div>
 
     <div class="stats">
+      <div class="stat"><b>7일</b><span>가입하면 무료 체험</span></div>
       <div class="stat"><b>3분</b><span>키워드 → 발행까지</span></div>
       <div class="stat"><b>24/7</b><span>무인 자동 운영</span></div>
-      <div class="stat"><b>2개</b><span>네이버 · 티스토리</span></div>
     </div>
   </header>
 
@@ -205,6 +232,10 @@
         <div class="pc-tagline">AI가 대신 쓰고, 스스로 발행합니다.</div>
         <div class="pc-desc">키워드만 넣으면 제목·본문·이미지·카테고리까지 AI가 완성해 네이버·티스토리에 자동 발행. 원터치 발행, 예약 발행, 서이추·공감까지 한 앱에서.</div>
         <div class="pc-feats"><span>원터치 발행</span><span>AI 제목·본문</span><span>이미지 생성</span><span>예약 발행</span><span>서이추·공감</span></div>
+        <div class="freebar">
+          <span class="free-ic">🎁</span>
+          <div><b>가입하면 7일 무료</b><em>카드 등록 없이 · 모든 기능 그대로 체험</em></div>
+        </div>
         <div class="dl-row">
           <a class="dl-btn primary" href="https://github.com/kimjonghoon1306/publy-BAP/releases/latest/download/Publy-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-BAP/releases/latest/download/Publy-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
@@ -216,7 +247,7 @@
       <div class="pcard pink" id="card-traffic">
         <div class="pc-halo"></div>
         <div class="pc-badge">🚦 검색 트래픽</div>
-        <div class="pc-logo">T</div>
+        <div class="pc-logo" id="tLogo" style="cursor:pointer;user-select:none">T</div>
         <div class="pc-name">TRAFFIC <small>퍼블리 트래픽 · 순위 상승</small></div>
         <div class="pc-tagline">검색 순위를 끌어올리는 진짜 트래픽.</div>
         <div class="pc-desc">키워드로 검색 → 클릭 → 체류 → 저장·공유까지, 진짜 손님처럼 자연 유입. 플레이스·블로그·스마트스토어 순위를 안전하게 밀어 올립니다.</div>
@@ -247,7 +278,66 @@
     © 2026 PUBLY. All rights reserved.
   </footer>
 
+  <!-- 떠다니는 마스코트 '펄리' — 클릭하면 폴짝+하트, 카톡 문의로 -->
+  <div class="buddy-tip" id="buddyTip">궁금한 거 있어요? 💬</div>
+  <button class="buddy" id="buddy" aria-label="결제·문의 카카오톡">
+    <svg width="96" height="112" viewBox="0 0 96 112" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff6a48"/><stop offset="55%" stop-color="#f0417a"/><stop offset="100%" stop-color="#ff7ab0"/>
+        </linearGradient>
+        <radialGradient id="cheek" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff" stop-opacity=".55"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      </defs>
+      <!-- 안테나 -->
+      <line x1="48" y1="18" x2="48" y2="6" stroke="url(#body)" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="48" cy="5" r="5.5" fill="url(#body)"/>
+      <!-- 몸통 -->
+      <rect x="14" y="18" width="68" height="66" rx="26" fill="url(#body)"/>
+      <!-- 얼굴 판 -->
+      <rect x="24" y="30" width="48" height="34" rx="17" fill="#0d0810" opacity=".92"/>
+      <!-- 눈 -->
+      <circle class="eye" cx="39" cy="47" r="6" fill="#fff"/>
+      <circle class="eye" cx="57" cy="47" r="6" fill="#fff"/>
+      <circle cx="40.5" cy="48" r="2.4" fill="#0d0810"/>
+      <circle cx="58.5" cy="48" r="2.4" fill="#0d0810"/>
+      <!-- 볼터치 -->
+      <circle cx="30" cy="56" r="6" fill="url(#cheek)"/>
+      <circle cx="66" cy="56" r="6" fill="url(#cheek)"/>
+      <!-- 입 -->
+      <path d="M42 57 q6 6 12 0" stroke="#ff9ec4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- 팔(펜 든) -->
+      <rect x="74" y="52" width="16" height="6" rx="3" fill="url(#body)" transform="rotate(-28 82 55)"/>
+      <!-- 다리 -->
+      <rect x="34" y="82" width="9" height="14" rx="4.5" fill="url(#body)"/>
+      <rect x="53" y="82" width="9" height="14" rx="4.5" fill="url(#body)"/>
+      <!-- 그림자 -->
+      <ellipse cx="48" cy="104" rx="26" ry="5" fill="#000" opacity=".22"/>
+    </svg>
+  </button>
+
 <script>
+  // 마스코트 상호작용 — 폴짝 + 하트 버스트 + 카톡 문의
+  const buddy=document.getElementById('buddy'), tip=document.getElementById('buddyTip');
+  const KAKAO='https://open.kakao.com/o/s5wAJ1Li';
+  let clicks=0, goTimer=null;
+  setTimeout(()=>{tip.classList.add('show');setTimeout(()=>tip.classList.remove('show'),3600);},1600);
+  buddy.addEventListener('mouseenter',()=>tip.classList.add('show'));
+  buddy.addEventListener('mouseleave',()=>tip.classList.remove('show'));
+  buddy.addEventListener('click',(e)=>{
+    buddy.classList.remove('hop'); void buddy.offsetWidth; buddy.classList.add('hop');
+    const r=buddy.getBoundingClientRect(); const cx=r.left+r.width/2, cy=r.top+r.height/2;
+    const emo=['💗','✨','💬','🩷','⭐'];
+    for(let i=0;i<5;i++){ const h=document.createElement('div'); h.className='heart'; h.textContent=emo[i%emo.length];
+      h.style.left=cx+'px'; h.style.top=cy+'px'; h.style.setProperty('--hx',(Math.random()*120-60)+'px'); h.style.setProperty('--hr',(Math.random()*60-30)+'deg');
+      document.body.appendChild(h); setTimeout(()=>h.remove(),1000); }
+    clicks++;
+    // 3번 이상 빠르게 누르면 "간지러워요!" 그전엔 안내
+    tip.textContent = clicks>=3 ? '간지러워요! 😆 눌러서 문의하기' : '카톡으로 문의 열기 💬';
+    tip.classList.add('show');
+    // 살짝 텀 두고 카톡 열기(재미 반응 보이게)
+    clearTimeout(goTimer); goTimer=setTimeout(()=>{ window.open(KAKAO,'_blank'); },520);
+  });
+
   // 테마
   const root=document.documentElement, tb=document.getElementById('theme');
   const setT=(t)=>{root.classList.toggle('light',t==='light');tb.textContent=t==='light'?'🌙':'☀️';localStorage.setItem('publy_dl_theme',t);};
@@ -258,15 +348,14 @@
   const v=document.getElementById('introVid'), pp=document.getElementById('pp');
   pp.onclick=()=>{ if(v.paused){v.play();pp.textContent='⏸';}else{v.pause();pp.textContent='▶';} };
 
-  // 🔐 로고 7번 탭 → 관리자 컨트롤타워(히든 진입)
+  // 🔐 트래픽(T) 로고 7번 탭 → 관리자 컨트롤타워(히든 진입)
   const ADMIN_URL='https://publy-tools-admin.vercel.app';
-  const logo=document.getElementById('logo'); let taps=0, tapTimer=null;
-  logo.style.cursor='pointer'; logo.style.userSelect='none';
-  logo.onclick=()=>{
+  const tLogo=document.getElementById('tLogo'); let taps=0, tapTimer=null;
+  tLogo.onclick=()=>{
     taps++;
-    clearTimeout(tapTimer); tapTimer=setTimeout(()=>{taps=0;},1500); // 1.5초 내 연속 탭
-    if(taps>=3){ logo.querySelector('.mark').style.transform=`scale(${1+(taps-2)*0.05}) rotate(${(taps-2)*8}deg)`; }
-    if(taps>=7){ taps=0; logo.querySelector('.mark').style.transform=''; location.href=ADMIN_URL; }
+    clearTimeout(tapTimer); tapTimer=setTimeout(()=>{taps=0;tLogo.style.transform='';},1500); // 1.5초 내 연속 탭
+    if(taps>=3){ tLogo.style.transform=`scale(${1+(taps-2)*0.06}) rotate(${(taps-2)*10}deg)`; }
+    if(taps>=7){ taps=0; tLogo.style.transform=''; location.href=ADMIN_URL; }
   };
 
   // 스크롤 등장
