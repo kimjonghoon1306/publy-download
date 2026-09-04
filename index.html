@@ -401,6 +401,18 @@
   window.addEventListener('beforeinstallprompt',(e)=>{ e.preventDefault(); deferredPrompt=e; installBtn.style.display='inline-flex'; });
   installBtn.onclick=async()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installBtn.style.display='none'; };
   window.addEventListener('appinstalled',()=>{ installBtn.style.display='none'; });
+
+  // ⬇️ 다운로드 버튼 — 첫 클릭이 조용히 시작돼 두 번 눌러 2번 받아지는 것 방지(피드백 + 4초 재클릭 차단)
+  document.querySelectorAll('.dl-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      if(b.dataset.dl){ return; }        // 이미 시작됨(중복 다운로드 방지)
+      b.dataset.dl='1';
+      const sub=b.querySelector('.sub'); const os=sub?sub.textContent:'';
+      b.style.opacity='.65'; if(sub) sub.textContent='⏳ 다운로드 시작됨…';
+      setTimeout(()=>{ b.style.opacity=''; if(sub) sub.textContent=os; delete b.dataset.dl; }, 4000);
+      // a href 다운로드는 그대로 진행(preventDefault 안 함)
+    });
+  });
 </script>
 </body>
 </html>
