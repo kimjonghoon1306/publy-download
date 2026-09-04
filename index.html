@@ -379,16 +379,17 @@
   // 🔐 트래픽(T) 로고 7번 탭 → 관리자 컨트롤타워(히든 진입)
   const ADMIN_URL='https://padmin.blogautopro.com';
   const tLogo=document.getElementById('tLogo'); let taps=0, tapTimer=null;
-  function tapLogo(e){
-    if(e) e.preventDefault();
+  // 로고가 확실히 클릭 받도록 강제(다른 요소에 안 가리게)
+  tLogo.style.pointerEvents='auto'; tLogo.style.position='relative'; tLogo.style.zIndex='30'; tLogo.style.cursor='pointer';
+  function tapLogo(){
     taps++;
-    clearTimeout(tapTimer); tapTimer=setTimeout(()=>{taps=0;tLogo.style.transform='';},1800); // 1.8초 내 연속 탭
-    if(taps>=3){ tLogo.style.transform=`scale(${1+(taps-2)*0.06}) rotate(${(taps-2)*10}deg)`; }
+    // 매 탭마다 반응(클릭이 먹히는지 눈으로 바로 확인) — 7번째에 관리자 이동
+    tLogo.style.transition='transform .12s'; tLogo.style.transform=`scale(${1+taps*0.05}) rotate(${taps*7}deg)`;
+    clearTimeout(tapTimer); tapTimer=setTimeout(()=>{taps=0;tLogo.style.transform='';},3000); // 3초 내 연속 탭
     if(taps>=7){ taps=0; tLogo.style.transform=''; window.location.href=ADMIN_URL; }
   }
-  // 데스크탑 클릭 + 모바일 탭 모두 확실히(pointerup 우선, 미지원 브라우저는 click)
-  if(window.PointerEvent){ tLogo.addEventListener('pointerup',tapLogo); }
-  else { tLogo.addEventListener('click',tapLogo); tLogo.addEventListener('touchend',tapLogo); }
+  tLogo.addEventListener('click',tapLogo);                                   // 데스크탑
+  tLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapLogo(); }); // 모바일(더블탭 줌 방지)
 
   // 스크롤 등장
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.15});
