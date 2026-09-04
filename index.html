@@ -8,11 +8,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="PUBLY" />
 <meta property="og:locale" content="ko_KR" />
-<meta property="og:url" content="https://pdownload.blogautopro.com/" />
+<meta property="og:url" content="https://pdown.blogautopro.com/" />
 <meta property="og:title" content="PUBLY — 당신이 잠든 사이, 블로그가 일합니다" />
 <meta property="og:description" content="키워드 하나로 제목·글·이미지·발행까지. 순위를 올리는 진짜 트래픽까지. 가입하면 7일 무료." />
-<meta property="og:image" content="https://pdownload.blogautopro.com/media/og.png?v=1" />
-<meta property="og:image:secure_url" content="https://pdownload.blogautopro.com/media/og.png?v=1" />
+<meta property="og:image" content="https://pdown.blogautopro.com/media/og.png?v=1" />
+<meta property="og:image:secure_url" content="https://pdown.blogautopro.com/media/og.png?v=1" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -20,7 +20,10 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="PUBLY — 당신이 잠든 사이, 블로그가 일합니다" />
 <meta name="twitter:description" content="AI 블로그 자동발행 + 검색 트래픽. 가입하면 7일 무료." />
-<meta name="twitter:image" content="https://pdownload.blogautopro.com/media/og.png?v=1" />
+<meta name="twitter:image" content="https://pdown.blogautopro.com/media/og.png?v=1" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#f0417a" />
+<link rel="apple-touch-icon" href="/icon-192.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
@@ -200,6 +203,7 @@
   <nav>
     <div class="logo"><span class="mark">P</span> PUBLY</div>
     <div class="nav-right">
+      <button class="ghlink" id="installBtn" style="display:none;cursor:pointer;font-family:inherit;">⬇ 앱 설치</button>
       <a class="ghlink" href="#products">제품 보기</a>
       <button class="themebtn" id="theme" title="테마 전환">☀️</button>
     </div>
@@ -355,7 +359,7 @@
   // 테마
   const root=document.documentElement, tb=document.getElementById('theme');
   const setT=(t)=>{root.classList.toggle('light',t==='light');tb.textContent=t==='light'?'🌙':'☀️';localStorage.setItem('publy_dl_theme',t);};
-  setT(localStorage.getItem('publy_dl_theme')||'dark');
+  setT(localStorage.getItem('publy_dl_theme')||'light');
   tb.onclick=()=>setT(root.classList.contains('light')?'dark':'light');
 
   // 영상 재생 토글
@@ -375,6 +379,13 @@
   // 스크롤 등장
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.15});
   ['card-publy','card-traffic','soon'].forEach((id,i)=>{const el=document.getElementById(id);el.style.transitionDelay=(i*.1)+'s';io.observe(el);});
+
+  // 📲 PWA — 서비스워커 등록 + 크롬 웹앱 설치 버튼
+  if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }
+  let deferredPrompt=null; const installBtn=document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt',(e)=>{ e.preventDefault(); deferredPrompt=e; installBtn.style.display='inline-flex'; });
+  installBtn.onclick=async()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installBtn.style.display='none'; };
+  window.addEventListener('appinstalled',()=>{ installBtn.style.display='none'; });
 </script>
 </body>
 </html>

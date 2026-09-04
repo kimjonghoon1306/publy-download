@@ -1,0 +1,15 @@
+{
+  "name": "PUBLY — 블로그·트래픽 자동화",
+  "short_name": "PUBLY",
+  "description": "키워드 하나로 제목·글·이미지·발행까지. 순위를 올리는 진짜 트래픽까지.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f4ef",
+  "theme_color": "#f0417a",
+  "lang": "ko",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
