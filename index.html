@@ -153,14 +153,11 @@
   html.light .dl-btn{background:rgba(0,0,0,.02);}
   .dl-btn .ic{font-size:18px;}
   .dl-btn .sub{margin-left:auto;font-size:11.5px;color:var(--sub);font-weight:600;}
-  .dl-btn.primary{color:#fff;border:none;}
-  .ember .dl-btn.primary{background:linear-gradient(100deg,var(--ember),var(--ember2));box-shadow:0 8px 24px rgba(255,90,60,.3);}
-  .pink .dl-btn.primary{background:linear-gradient(100deg,var(--pink),var(--pink2));box-shadow:0 8px 24px rgba(240,65,122,.3);}
-  .dl-btn.primary .sub{color:rgba(255,255,255,.8);}
-  .dl-btn:hover{transform:translateX(4px);}
-  .ember .dl-btn:hover{border-color:var(--ember);}
-  .pink .dl-btn:hover{border-color:var(--pink);}
-  .dl-btn.primary:hover{transform:translateY(-2px);}
+  /* 평소엔 담백, 마우스 올리면 색이 채워진다 */
+  .dl-btn:hover{transform:translateY(-2px);color:#fff;border-color:transparent;}
+  .dl-btn:hover .sub{color:rgba(255,255,255,.85);}
+  .ember .dl-btn:hover{background:linear-gradient(100deg,var(--ember),var(--ember2));box-shadow:0 8px 24px rgba(255,90,60,.35);}
+  .pink .dl-btn:hover{background:linear-gradient(100deg,var(--pink),var(--pink2));box-shadow:0 8px 24px rgba(240,65,122,.35);}
 
   /* Coming soon */
   .soon{margin-top:24px;border-radius:22px;border:1px dashed var(--line);padding:30px;text-align:center;color:var(--sub);
@@ -255,7 +252,7 @@
           <div><b>가입하면 7일 무료</b><em>카드 등록 없이 · 모든 기능 그대로 체험</em></div>
         </div>
         <div class="dl-row">
-          <a class="dl-btn primary" href="https://github.com/kimjonghoon1306/publy-BAP/releases/latest/download/Publy-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
+          <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-BAP/releases/latest/download/Publy-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-BAP/releases/latest/download/Publy-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-BAP/releases/latest/download/Publy-Mac-Intel.dmg"><span class="ic">🍎</span> 맥 (인텔 칩) <span class="sub">Intel</span></a>
         </div>
@@ -271,7 +268,7 @@
         <div class="pc-desc">키워드로 검색 → 클릭 → 체류 → 저장·공유까지, 진짜 손님처럼 자연 유입. 플레이스·블로그·스마트스토어 순위를 안전하게 밀어 올립니다.</div>
         <div class="pc-feats"><span>플레이스</span><span>블로그</span><span>스마트스토어</span><span>순위 오토파일럿</span><span>프록시 IP 회전</span></div>
         <div class="dl-row">
-          <a class="dl-btn primary" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/Publy-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
+          <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/Publy-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/Publy-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/Publy-Mac-Intel.dmg"><span class="ic">🍎</span> 맥 (인텔 칩) <span class="sub">Intel</span></a>
         </div>
