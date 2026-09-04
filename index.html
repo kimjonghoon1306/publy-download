@@ -206,7 +206,7 @@
   <div class="grain"></div>
 
   <nav>
-    <div class="logo"><span class="mark">P</span> PUBLY</div>
+    <div class="logo" id="hdrLogo" style="cursor:pointer;user-select:none"><span class="mark">P</span> PUBLY</div>
     <div class="nav-right">
       <button class="ghlink" id="installBtn" style="display:none;cursor:pointer;font-family:inherit;">⬇ 앱 설치</button>
       <a class="ghlink" href="#products">제품 보기</a>
@@ -376,20 +376,20 @@
   const v=document.getElementById('introVid'), pp=document.getElementById('pp');
   pp.onclick=()=>{ if(v.paused){v.play();pp.textContent='⏸';}else{v.pause();pp.textContent='▶';} };
 
-  // 🔐 트래픽(T) 로고 7번 탭 → 관리자 컨트롤타워(히든 진입)
+  // 🔐 왼쪽 상단 P 로고 7번 탭 → 관리자 컨트롤타워(padmin) 히든 진입
   const ADMIN_URL='https://padmin.blogautopro.com';
-  const tLogo=document.getElementById('tLogo'); let taps=0, tapTimer=null;
+  const hdrLogo=document.getElementById('hdrLogo'); let taps=0, tapTimer=null;
   // 로고가 확실히 클릭 받도록 강제(다른 요소에 안 가리게)
-  tLogo.style.pointerEvents='auto'; tLogo.style.position='relative'; tLogo.style.zIndex='30'; tLogo.style.cursor='pointer';
+  hdrLogo.style.pointerEvents='auto'; hdrLogo.style.position='relative'; hdrLogo.style.zIndex='60'; hdrLogo.style.cursor='pointer';
   function tapLogo(){
     taps++;
     // 매 탭마다 반응(클릭이 먹히는지 눈으로 바로 확인) — 7번째에 관리자 이동
-    tLogo.style.transition='transform .12s'; tLogo.style.transform=`scale(${1+taps*0.05}) rotate(${taps*7}deg)`;
-    clearTimeout(tapTimer); tapTimer=setTimeout(()=>{taps=0;tLogo.style.transform='';},3000); // 3초 내 연속 탭
-    if(taps>=7){ taps=0; tLogo.style.transform=''; window.location.href=ADMIN_URL; }
+    hdrLogo.style.transition='transform .12s'; hdrLogo.style.transform=`scale(${1+taps*0.04}) rotate(${taps*4}deg)`;
+    clearTimeout(tapTimer); tapTimer=setTimeout(()=>{taps=0;hdrLogo.style.transform='';},3000); // 3초 내 연속 탭
+    if(taps>=7){ taps=0; hdrLogo.style.transform=''; window.location.href=ADMIN_URL; }
   }
-  tLogo.addEventListener('click',tapLogo);                                   // 데스크탑
-  tLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapLogo(); }); // 모바일(더블탭 줌 방지)
+  hdrLogo.addEventListener('click',tapLogo);                                   // 데스크탑
+  hdrLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapLogo(); }); // 모바일(더블탭 줌 방지)
 
   // 스크롤 등장
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.15});
