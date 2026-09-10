@@ -31,7 +31,7 @@
 <style>
   :root{
     --bg:#08070b; --bg2:#0e0c12; --ink:#f4f0ee; --sub:#9a94a2; --line:rgba(255,255,255,.09);
-    --ember:#ff5a3c; --ember2:#ff8a4c; --pink:#f0417a; --pink2:#ff7ab0;
+    --ember:#ff5a3c; --ember2:#ff8a4c; --pink:#f0417a; --pink2:#ff7ab0; --gold:#f5c451; --gold2:#c9a03f;
     --card:rgba(255,255,255,.026);
   }
   html.light{
@@ -130,6 +130,9 @@
   .pcard.ember{--accB:var(--ember);}
   .pcard.pink{--accB:var(--pink);}
   .pcard.pink::before{background:linear-gradient(90deg,var(--pink),var(--pink2));}
+  .pcard.gold{--accB:var(--gold);}
+  .pcard.gold::before{background:linear-gradient(90deg,var(--gold),var(--gold2));}
+  .pcard.gold .pc-logo{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#231a08;}
   .pc-halo{position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(90px);opacity:.16;top:-80px;right:-80px;pointer-events:none;}
   .ember .pc-halo{background:var(--ember);}
   .pink .pc-halo{background:var(--pink);}
@@ -279,6 +282,22 @@
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/PublyTraffic-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/PublyTraffic-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/PublyTraffic-Mac-Intel.dmg"><span class="ic">🍎</span> 맥 (인텔 칩) <span class="sub">Intel</span></a>
+        </div>
+      </div>
+
+      <!-- 골든시드 -->
+      <div class="pcard gold" id="card-goldenseed">
+        <div class="pc-halo"></div>
+        <div class="pc-badge">🌱 골든아워 초기시딩</div>
+        <div class="pc-logo">C</div>
+        <div class="pc-name">GOLDENSEED <small>퍼블리 골든시드 · 초기 부스팅</small></div>
+        <div class="pc-tagline">골든아워 30분, 초기 노출을 결정합니다.</div>
+        <div class="pc-desc">유튜브·인스타는 업로드 직후 30분(골든아워)의 초기 반응으로 노출이 갈립니다. 페이스북·인스타를 경유한 자연 유입으로 조회·좋아요·댓글을 임계선 밑에서 자연스럽게 꽂아, 알고리즘이 "떡상 콘텐츠"로 인식하게 만드는 초기 부스팅 엔진입니다.</div>
+        <div class="pc-feats"><span>유튜브 쇼츠·롱폼</span><span>인스타 릴스·게시물</span><span>조회·시청·좋아요·댓글</span><span>AI 자연 댓글</span><span>국가별 프록시 IP</span><span>게이트웨이 경유</span></div>
+        <div class="dl-row">
+          <a class="dl-btn" href="https://github.com/kimjonghoon1306/goldenseed/releases/latest/download/GoldenSeed-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
+          <a class="dl-btn" href="https://github.com/kimjonghoon1306/goldenseed/releases/latest/download/GoldenSeed-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
+          <a class="dl-btn" href="https://github.com/kimjonghoon1306/goldenseed/releases/latest/download/GoldenSeed-Mac-Intel.dmg"><span class="ic">🍎</span> 맥 (인텔 칩) <span class="sub">Intel</span></a>
         </div>
       </div>
     </div>
