@@ -291,7 +291,7 @@
       <div class="pcard gold" id="card-goldenseed">
         <div class="pc-halo"></div>
         <div class="pc-badge">🌱 골든아워 초기시딩</div>
-        <div class="pc-logo">C</div>
+        <div class="pc-logo" id="cLogo" style="cursor:pointer;user-select:none">C</div>
         <div class="pc-name">GOLDENSEED <small>퍼블리 골든시드 · 초기 부스팅</small></div>
         <div class="pc-tagline">골든아워 30분, 초기 노출을 결정합니다.</div>
         <div class="pc-desc">유튜브·인스타는 업로드 직후 30분(골든아워)의 초기 반응으로 노출이 갈립니다. 페이스북·인스타를 경유한 자연 유입으로 조회·좋아요·댓글을 임계선 밑에서 자연스럽게 꽂아, 알고리즘이 "떡상 콘텐츠"로 인식하게 만드는 초기 부스팅 엔진입니다.</div>
@@ -411,6 +411,21 @@
   }
   hdrLogo.addEventListener('click',tapLogo);                                   // 데스크탑
   hdrLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapLogo(); }); // 모바일(더블탭 줌 방지)
+
+  // 🌱🔐 골든시드 카드 C 로고 7번 탭 → 골든시드 관리자(sadmin) 히든 진입
+  const GS_ADMIN_URL='https://sadmin.blogautopro.com';
+  const cLogo=document.getElementById('cLogo'); let cTaps=0, cTimer=null;
+  if(cLogo){
+    cLogo.style.pointerEvents='auto'; cLogo.style.position='relative'; cLogo.style.zIndex='60';
+    function tapC(){
+      cTaps++;
+      cLogo.style.transition='transform .12s'; cLogo.style.transform=`scale(${1+cTaps*0.04}) rotate(${cTaps*4}deg)`;
+      clearTimeout(cTimer); cTimer=setTimeout(()=>{cTaps=0;cLogo.style.transform='';},3000);
+      if(cTaps>=7){ cTaps=0; cLogo.style.transform=''; window.location.href=GS_ADMIN_URL; }
+    }
+    cLogo.addEventListener('click',tapC);
+    cLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapC(); });
+  }
 
   // 스크롤 등장
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.15});
