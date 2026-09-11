@@ -413,18 +413,23 @@
   hdrLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapLogo(); }); // 모바일(더블탭 줌 방지)
 
   // 🌱🔐 골든시드 카드 C 로고 7번 탭 → 골든시드 관리자 히든 진입
+  //   ★모바일 터치 확실하게: click 하나만 사용(touchend+click 동시=iOS 이중카운트/오작동 원인).
+  //     터치 영역 넉넉히 + z-index로 halo·카드애니 위로. 매 탭 반응(눈으로 확인).
   const GS_ADMIN_URL='https://seed.blogautopro.com/admin/';
   const cLogo=document.getElementById('cLogo'); let cTaps=0, cTimer=null;
   if(cLogo){
-    cLogo.style.pointerEvents='auto'; cLogo.style.position='relative'; cLogo.style.zIndex='60';
-    function tapC(){
+    cLogo.style.pointerEvents='auto'; cLogo.style.position='relative'; cLogo.style.zIndex='70';
+    cLogo.style.cursor='pointer'; cLogo.style.touchAction='manipulation'; cLogo.style.webkitTapHighlightColor='transparent';
+    const tapC=(e)=>{
+      if(e){ e.preventDefault(); e.stopPropagation(); }
       cTaps++;
-      cLogo.style.transition='transform .12s'; cLogo.style.transform=`scale(${1+cTaps*0.04}) rotate(${cTaps*4}deg)`;
-      clearTimeout(cTimer); cTimer=setTimeout(()=>{cTaps=0;cLogo.style.transform='';},3000);
-      if(cTaps>=7){ cTaps=0; cLogo.style.transform=''; window.location.href=GS_ADMIN_URL; }
-    }
+      cLogo.style.transition='transform .1s'; cLogo.style.transform=`scale(${1+cTaps*0.05})`;
+      setTimeout(()=>{ if(cTaps<7) cLogo.style.transform='scale(1)'; },110);
+      clearTimeout(cTimer); cTimer=setTimeout(()=>{cTaps=0;cLogo.style.transform='scale(1)';},2500);
+      if(cTaps>=7){ cTaps=0; cLogo.style.transform='scale(1)'; window.location.assign(GS_ADMIN_URL); }
+    };
+    // click = 데스크탑+모바일 공통(모바일 브라우저가 tap을 click으로 합성해줌). 중복 리스너 금지.
     cLogo.addEventListener('click',tapC);
-    cLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapC(); });
   }
 
   // 스크롤 등장
