@@ -412,8 +412,8 @@
   hdrLogo.addEventListener('click',tapLogo);                                   // 데스크탑
   hdrLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapLogo(); }); // 모바일(더블탭 줌 방지)
 
-  // 🌱🔐 골든시드 카드 C 로고 7번 탭 → 골든시드 관리자(sadmin) 히든 진입
-  const GS_ADMIN_URL='https://sadmin.blogautopro.com';
+  // 🌱🔐 골든시드 카드 C 로고 7번 탭 → 골든시드 관리자 히든 진입
+  const GS_ADMIN_URL='https://seed.blogautopro.com/admin/';
   const cLogo=document.getElementById('cLogo'); let cTaps=0, cTimer=null;
   if(cLogo){
     cLogo.style.pointerEvents='auto'; cLogo.style.position='relative'; cLogo.style.zIndex='60';
