@@ -31,7 +31,7 @@
 <style>
   :root{
     --bg:#08070b; --bg2:#0e0c12; --ink:#f4f0ee; --sub:#9a94a2; --line:rgba(255,255,255,.09);
-    --ember:#ff5a3c; --ember2:#ff8a4c; --pink:#f0417a; --pink2:#ff7ab0; --gold:#f5c451; --gold2:#c9a03f;
+    --ember:#ff5a3c; --ember2:#ff8a4c; --pink:#f0417a; --pink2:#ff7ab0; --gold:#f5c451; --gold2:#c9a03f; --moca:#a0724e; --moca2:#c89b6a;
     --card:rgba(255,255,255,.026);
   }
   html.light{
@@ -133,6 +133,12 @@
   .pcard.gold{--accB:var(--gold);}
   .pcard.gold::before{background:linear-gradient(90deg,var(--gold),var(--gold2));}
   .pcard.gold .pc-logo{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#231a08;}
+  .pcard.moca{--accB:var(--moca);}
+  .pcard.moca::before{background:linear-gradient(90deg,var(--moca),var(--moca2));}
+  .moca .pc-halo{background:var(--moca);}
+  .moca .pc-badge{color:var(--moca2);background:rgba(160,114,78,.14);border:1px solid rgba(160,114,78,.28);}
+  .moca .pc-logo{background:conic-gradient(from 200deg,var(--moca),var(--moca2),var(--moca));box-shadow:0 10px 30px rgba(160,114,78,.4);}
+  .moca .dl-btn:hover{background:linear-gradient(100deg,var(--moca),var(--moca2));box-shadow:0 8px 24px rgba(160,114,78,.35);}
   .pc-halo{position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(90px);opacity:.16;top:-80px;right:-80px;pointer-events:none;}
   .ember .pc-halo{background:var(--ember);}
   .pink .pc-halo{background:var(--pink);}
@@ -302,6 +308,22 @@
           <a class="dl-btn" href="https://github.com/tarry-2/Publy-seed/releases/latest/download/GoldenSeed-Mac-Intel.dmg"><span class="ic">🍎</span> 맥 (인텔 칩) <span class="sub">Intel</span></a>
         </div>
       </div>
+
+      <!-- 모카(카페 자동화) -->
+      <div class="pcard moca" id="card-moca">
+        <div class="pc-halo"></div>
+        <div class="pc-badge">☕ 카페 자동화</div>
+        <div class="pc-logo">M</div>
+        <div class="pc-name">MOCA <small>모카 · 네이버 카페 자동화</small></div>
+        <div class="pc-tagline">카페에 글을 심고, 유입을 만듭니다.</div>
+        <div class="pc-desc">키워드만 넣으면 AI가 카페 게시글을 SEO 최적화로 작성해 자동 발행. 이미지 생성·제휴 상품 카드·해시태그까지 한 번에. 여러 카페에 안전하게 홍보하고 조회수·유입을 끌어올리는 카페 마케팅 엔진입니다.</div>
+        <div class="pc-feats"><span>AI 카페 글쓰기</span><span>이미지 자동생성</span><span>온파트너 상품</span><span>순차·예약 발행</span><span>다계정 관리</span><span>유입·조회수</span></div>
+        <div class="dl-row">
+          <a class="dl-btn" href="https://github.com/tarry-2/moca/releases/latest/download/MOCA-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
+          <a class="dl-btn" href="https://github.com/tarry-2/moca/releases/latest/download/MOCA-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
+          <a class="dl-btn" href="https://github.com/tarry-2/moca/releases/latest/download/MOCA-Mac-Intel.dmg"><span class="ic">🍎</span> 맥 (인텔 칩) <span class="sub">Intel</span></a>
+        </div>
+      </div>
     </div>
 
     <!-- Coming soon -->
@@ -434,7 +456,7 @@
 
   // 스크롤 등장
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.15});
-  ['card-publy','card-traffic','card-goldenseed','soon'].forEach((id,i)=>{const el=document.getElementById(id);if(!el)return;el.style.transitionDelay=(i*.1)+'s';io.observe(el);});
+  ['card-publy','card-traffic','card-goldenseed','card-moca','soon'].forEach((id,i)=>{const el=document.getElementById(id);if(!el)return;el.style.transitionDelay=(i*.1)+'s';io.observe(el);});
 
   // 📲 PWA — 서비스워커 등록 + 크롬 웹앱 설치 버튼
   if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }
