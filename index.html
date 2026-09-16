@@ -31,7 +31,7 @@
 <style>
   :root{
     --bg:#08070b; --bg2:#0e0c12; --ink:#f4f0ee; --sub:#9a94a2; --line:rgba(255,255,255,.09);
-    --ember:#ff5a3c; --ember2:#ff8a4c; --pink:#f0417a; --pink2:#ff7ab0; --gold:#f5c451; --gold2:#c9a03f; --moca:#a0724e; --moca2:#c89b6a;
+    --ember:#ff5a3c; --ember2:#ff8a4c; --pink:#f0417a; --pink2:#ff7ab0; --gold:#f5c451; --gold2:#c9a03f; --moca:#a0724e; --moca2:#c89b6a; --blog:#10b981; --blog2:#34d399;
     --card:rgba(255,255,255,.026);
   }
   html.light{
@@ -122,6 +122,9 @@
 
   .products{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
   @media(max-width:860px){.products{grid-template-columns:1fr;}}
+  /* 5번째(홀수 마지막) 카드는 두 칸 가로질러 가운데로 — 빈칸 방지 */
+  #card-blog{grid-column:1 / -1;max-width:calc(50% - 12px);margin:0 auto;width:100%;}
+  @media(max-width:860px){#card-blog{max-width:100%;}}
   .pcard{position:relative;border-radius:26px;border:1px solid var(--line);background:var(--card);padding:38px 34px 34px;overflow:hidden;
     transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s;opacity:0;transform:translateY(40px);}
   .pcard.in{opacity:1;transform:translateY(0);}
@@ -139,6 +142,12 @@
   .moca .pc-badge{color:var(--moca2);background:rgba(160,114,78,.14);border:1px solid rgba(160,114,78,.28);}
   .moca .pc-logo{background:conic-gradient(from 200deg,var(--moca),var(--moca2),var(--moca));box-shadow:0 10px 30px rgba(160,114,78,.4);}
   .moca .dl-btn:hover{background:linear-gradient(100deg,var(--moca),var(--moca2));box-shadow:0 8px 24px rgba(160,114,78,.35);}
+  .pcard.blog{--accB:var(--blog);}
+  .pcard.blog::before{background:linear-gradient(90deg,var(--blog),var(--blog2));}
+  .blog .pc-halo{background:var(--blog);}
+  .blog .pc-badge{color:var(--blog2);background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.28);}
+  .blog .pc-logo{background:conic-gradient(from 200deg,var(--blog),var(--blog2),var(--blog));box-shadow:0 10px 30px rgba(16,185,129,.4);}
+  .blog .dl-btn:hover{background:linear-gradient(100deg,var(--blog),var(--blog2));box-shadow:0 8px 24px rgba(16,185,129,.35);}
   .pc-halo{position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(90px);opacity:.16;top:-80px;right:-80px;pointer-events:none;}
   .ember .pc-halo{background:var(--ember);}
   .pink .pc-halo{background:var(--pink);}
@@ -324,12 +333,20 @@
           <a class="dl-btn" href="https://github.com/tarry-2/moca/releases/latest/download/MOCA-Mac-Intel.dmg"><span class="ic">🍎</span> 맥 (인텔 칩) <span class="sub">Intel</span></a>
         </div>
       </div>
-    </div>
 
-    <!-- Coming soon -->
-    <div class="soon" id="soon">
-      <div class="pill">COMING SOON</div>
-      <div><b>블로그오토프로</b> — 곧 이곳에서 함께 만나요.</div>
+      <!-- 블로그오토프로(해외 블로그 자동발행) -->
+      <div class="pcard blog" id="card-blog">
+        <div class="pc-halo"></div>
+        <div class="pc-badge">🌍 해외 블로그 자동화</div>
+        <div class="pc-logo">B</div>
+        <div class="pc-name">BlogAuto Pro <small>블로그오토프로 · 글로벌 자동발행</small></div>
+        <div class="pc-tagline">영어 블로그로, 애드센스 달러를 법니다.</div>
+        <div class="pc-desc">고클릭 애드센스 키워드를 자동 수집하고, AI가 1,500자 이상 SEO 글과 실사 이미지를 생성해 <b>미디엄·워드프레스·구글 블로거·커스텀 웹사이트</b>까지 예약·원클릭으로 자동 발행합니다. 설치 없이 웹에서 바로, 8개국 다국어로 해외 트래픽과 달러 수익을 노리는 글로벌 블로그 자동화 플랫폼입니다.</div>
+        <div class="pc-feats"><span>AI 글 자동생성</span><span>실사 이미지 생성</span><span>애드센스 키워드</span><span>미디엄·워드프레스</span><span>구글 블로거·커스텀</span><span>다국어 8개국</span></div>
+        <div class="dl-row">
+          <a class="dl-btn" href="https://www.blogautopro.com" target="_blank" rel="noopener"><span class="ic">🌐</span> 무료로 시작하기 <span class="sub">웹에서 바로 · blogautopro.com</span></a>
+        </div>
+      </div>
     </div>
 
     <div class="note">
@@ -456,7 +473,7 @@
 
   // 스크롤 등장
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.15});
-  ['card-publy','card-traffic','card-goldenseed','card-moca','soon'].forEach((id,i)=>{const el=document.getElementById(id);if(!el)return;el.style.transitionDelay=(i*.1)+'s';io.observe(el);});
+  ['card-publy','card-traffic','card-goldenseed','card-moca','card-blog'].forEach((id,i)=>{const el=document.getElementById(id);if(!el)return;el.style.transitionDelay=(i*.1)+'s';io.observe(el);});
 
   // 📲 PWA — 서비스워커 등록 + 크롬 웹앱 설치 버튼
   if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }
