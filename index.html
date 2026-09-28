@@ -480,6 +480,19 @@
   hdrLogo.addEventListener('click',tapLogo);                                   // 데스크탑
   hdrLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapLogo(); }); // 모바일(더블탭 줌 방지)
 
+  // 🚦🔐 트래픽 카드 T 로고 7번 탭 → 트래픽 관리자(컨트롤타워 padmin)
+  const tLogo=document.getElementById('tLogo');
+  if(tLogo){ let tTaps=0,tTimer=null;
+    tLogo.style.position='relative'; tLogo.style.zIndex='60'; tLogo.style.cursor='pointer';
+    function tapTLogo(){ tTaps++;
+      tLogo.style.transition='transform .12s'; tLogo.style.transform=`scale(${1+tTaps*0.05}) rotate(${tTaps*5}deg)`;
+      clearTimeout(tTimer); tTimer=setTimeout(()=>{tTaps=0;tLogo.style.transform='';},3000);
+      if(tTaps>=7){ tTaps=0; tLogo.style.transform=''; window.location.href='https://padmin.blogautopro.com'; }
+    }
+    tLogo.addEventListener('click',tapTLogo);
+    tLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapTLogo(); });
+  }
+
   // 🌱🔐 골든시드 카드 C 로고 7번 탭 → 골든시드 관리자 히든 진입
   //   ★모바일 터치 확실하게: click 하나만 사용(touchend+click 동시=iOS 이중카운트/오작동 원인).
   //     터치 영역 넉넉히 + z-index로 halo·카드애니 위로. 매 탭 반응(눈으로 확인).
