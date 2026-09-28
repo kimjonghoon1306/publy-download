@@ -172,6 +172,18 @@
   .free-ic{font-size:22px;flex-shrink:0;}
   .freebar b{display:block;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.01em;}
   .freebar em{display:block;font-style:normal;font-size:12px;color:var(--sub);font-weight:600;margin-top:2px;}
+  .build-status{display:flex;align-items:center;gap:9px;margin:0 0 13px;padding:10px 13px;border-radius:12px;font-size:12.5px;font-weight:700;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--sub);}
+  html.light .build-status{background:rgba(0,0,0,.02);}
+  .build-status .bdot{width:9px;height:9px;border-radius:50%;background:#9aa4b2;flex-shrink:0;}
+  .build-status .bver{margin-left:auto;font-size:11px;color:var(--sub);font-weight:600;white-space:nowrap;}
+  .build-status.ready{color:#16a34a;border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.09);}
+  .build-status.ready .bdot{background:#22c55e;animation:bpulseG 2.2s infinite;}
+  .build-status.building{color:#d97706;border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.10);}
+  .build-status.building .bdot{background:#f59e0b;animation:bpulseY 1s infinite;}
+  .build-status.fail{color:#dc2626;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.09);}
+  .build-status.fail .bdot{background:#ef4444;}
+  @keyframes bpulseG{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 6px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+  @keyframes bpulseY{0%{opacity:1}50%{opacity:.35}100%{opacity:1}}
   .dl-row{display:flex;flex-direction:column;gap:9px;}
   .dl-btn{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:13px;text-decoration:none;font-weight:700;font-size:14.5px;color:var(--ink);border:1px solid var(--line);background:rgba(255,255,255,.03);transition:.2s;}
   html.light .dl-btn{background:rgba(0,0,0,.02);}
@@ -279,6 +291,9 @@
           <span class="free-ic">🎁</span>
           <div><b>가입하면 7일 무료</b><em>카드 등록 없이 · 모든 기능 그대로 체험</em></div>
         </div>
+        <div class="build-status" data-repo="kimjonghoon1306/publy-BAP">
+          <span class="bdot"></span><span class="btxt">빌드 상태 확인 중…</span><span class="bver"></span>
+        </div>
         <div class="dl-row">
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-BAP/releases/latest/download/Publy-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-BAP/releases/latest/download/Publy-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
@@ -295,6 +310,9 @@
         <div class="pc-tagline">검색 순위를 끌어올리는 진짜 트래픽.</div>
         <div class="pc-desc">키워드로 검색 → 클릭 → 체류 → 저장·공유까지, 진짜 손님처럼 자연 유입. 플레이스·블로그·스마트스토어 순위를 안전하게 밀어 올립니다.</div>
         <div class="pc-feats"><span>플레이스</span><span>블로그</span><span>스마트스토어</span><span>순위 오토파일럿</span><span>프록시 IP 회전</span></div>
+        <div class="build-status" data-repo="kimjonghoon1306/publy-traffic">
+          <span class="bdot"></span><span class="btxt">빌드 상태 확인 중…</span><span class="bver"></span>
+        </div>
         <div class="dl-row">
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/PublyTraffic-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
           <a class="dl-btn" href="https://github.com/kimjonghoon1306/publy-traffic/releases/latest/download/PublyTraffic-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
@@ -311,6 +329,9 @@
         <div class="pc-tagline">골든아워 30분, 초기 노출을 결정합니다.</div>
         <div class="pc-desc">유튜브·인스타는 업로드 직후 30분(골든아워)의 초기 반응으로 노출이 갈립니다. 페이스북·인스타를 경유한 자연 유입으로 조회·좋아요·댓글을 임계선 밑에서 자연스럽게 꽂아, 알고리즘이 "떡상 콘텐츠"로 인식하게 만드는 초기 부스팅 엔진입니다.</div>
         <div class="pc-feats"><span>유튜브 쇼츠·롱폼</span><span>인스타 릴스·게시물</span><span>조회·시청·좋아요·댓글</span><span>AI 자연 댓글</span><span>국가별 프록시 IP</span><span>게이트웨이 경유</span></div>
+        <div class="build-status" data-repo="tarry-2/Publy-seed">
+          <span class="bdot"></span><span class="btxt">빌드 상태 확인 중…</span><span class="bver"></span>
+        </div>
         <div class="dl-row">
           <a class="dl-btn" href="https://github.com/tarry-2/Publy-seed/releases/latest/download/GoldenSeed-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
           <a class="dl-btn" href="https://github.com/tarry-2/Publy-seed/releases/latest/download/GoldenSeed-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
@@ -327,6 +348,9 @@
         <div class="pc-tagline">카페에 글을 심고, 유입을 만듭니다.</div>
         <div class="pc-desc">키워드만 넣으면 AI가 카페 게시글을 SEO 최적화로 작성해 자동 발행. 이미지 생성·제휴 상품 카드·해시태그까지 한 번에. 여러 카페에 안전하게 홍보하고 조회수·유입을 끌어올리는 카페 마케팅 엔진입니다.</div>
         <div class="pc-feats"><span>AI 카페 글쓰기</span><span>이미지 자동생성</span><span>온파트너 상품</span><span>순차·예약 발행</span><span>다계정 관리</span><span>유입·조회수</span></div>
+        <div class="build-status" data-repo="tarry-2/moca">
+          <span class="bdot"></span><span class="btxt">빌드 상태 확인 중…</span><span class="bver"></span>
+        </div>
         <div class="dl-row">
           <a class="dl-btn" href="https://github.com/tarry-2/moca/releases/latest/download/MOCA-Mac-AppleSilicon.dmg"><span class="ic">🍎</span> 맥 다운로드 <span class="sub">Apple 칩 · M1~M4</span></a>
           <a class="dl-btn" href="https://github.com/tarry-2/moca/releases/latest/download/MOCA-Setup.exe"><span class="ic">🪟</span> 윈도우 다운로드 <span class="sub">.exe</span></a>
@@ -493,6 +517,58 @@
       // a href 다운로드는 그대로 진행(preventDefault 안 함)
     });
   });
+/* ═══ 앱별 빌드 상태 표시 (GitHub Actions API, 서버 없이 클라이언트에서) ═══ */
+(function(){
+  var CACHE_TTL = 60000;      // 조회 결과 60초 캐시 (rate limit 60/시간 보호)
+  var POLL_MS   = 45000;      // 빌드 중일 때만 45초마다 재확인 → 끝나면 초록불
+  function relTime(ts){
+    var s = (Date.now() - new Date(ts).getTime())/1000;
+    if(s < 60) return '방금';
+    if(s < 3600) return Math.floor(s/60)+'분 전';
+    if(s < 86400) return Math.floor(s/3600)+'시간 전';
+    return Math.floor(s/86400)+'일 전';
+  }
+  function verOf(msg){ var m = (msg||'').match(/v?(\d+\.\d+\.\d+)/); return m ? ('v'+m[1]) : ''; }
+  async function check(el){
+    var repo = el.getAttribute('data-repo');
+    var dot = el.querySelector('.bdot'), txt = el.querySelector('.btxt'), ver = el.querySelector('.bver');
+    var ck = 'bs_'+repo;
+    try{
+      var data = null;
+      try{ var c = JSON.parse(localStorage.getItem(ck)||'null'); if(c && Date.now()-c.t < CACHE_TTL) data = c.d; }catch(e){}
+      if(!data){
+        var res = await fetch('https://api.github.com/repos/'+repo+'/actions/runs?per_page=1', { headers:{ 'Accept':'application/vnd.github+json' } });
+        if(!res.ok) throw new Error(res.status);
+        var j = await res.json();
+        var run = j.workflow_runs && j.workflow_runs[0];
+        if(!run) throw new Error('no run');
+        data = { status:run.status, conclusion:run.conclusion, msg:(run.head_commit&&run.head_commit.message)||'', updated:run.updated_at };
+        try{ localStorage.setItem(ck, JSON.stringify({ t:Date.now(), d:data })); }catch(e){}
+      }
+      el.classList.remove('ready','building','fail');
+      var v = verOf(data.msg);
+      if(data.status !== 'completed'){                    // queued / in_progress
+        el.classList.add('building');
+        txt.textContent = '새 버전 빌드 중… 지금은 직전 버전 받기';
+        ver.textContent = v ? (v+' 준비 중') : '';
+        setTimeout(function(){ try{ localStorage.removeItem(ck); }catch(e){} check(el); }, POLL_MS);
+      } else if(data.conclusion === 'success'){
+        el.classList.add('ready');
+        txt.textContent = '최신 버전 다운로드 준비 완료';
+        ver.textContent = (v ? v+' · ' : '') + '업데이트 '+relTime(data.updated);
+      } else {                                            // failure / cancelled
+        el.classList.add('fail');
+        txt.textContent = '최신 빌드 실패 — 직전 버전은 받을 수 있어요';
+        ver.textContent = v;
+      }
+    }catch(e){
+      el.classList.remove('ready','building','fail');
+      txt.textContent = '상태 확인 불가 · 다운로드는 가능';
+      ver.textContent = '';
+    }
+  }
+  document.querySelectorAll('.build-status').forEach(check);
+})();
 </script>
 </body>
 </html>
