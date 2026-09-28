@@ -182,6 +182,8 @@
   .build-status.building .bdot{background:#f59e0b;animation:bpulseY 1s infinite;}
   .build-status.fail{color:#dc2626;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.09);}
   .build-status.fail .bdot{background:#ef4444;}
+  .build-status.web{color:#0891b2;border-color:rgba(8,145,178,.35);background:rgba(8,145,178,.09);}
+  .build-status.web .bdot{background:#06b6d4;animation:bpulseG 2.2s infinite;}
   @keyframes bpulseG{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 6px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
   @keyframes bpulseY{0%{opacity:1}50%{opacity:.35}100%{opacity:1}}
   .dl-row{display:flex;flex-direction:column;gap:9px;}
@@ -367,6 +369,9 @@
         <div class="pc-tagline">영어 블로그로, 애드센스 달러를 법니다.</div>
         <div class="pc-desc">고클릭 애드센스 키워드를 자동 수집하고, AI가 1,500자 이상 SEO 글과 실사 이미지를 생성해 <b>미디엄·워드프레스·구글 블로거·커스텀 웹사이트</b>까지 예약·원클릭으로 자동 발행합니다. 설치 없이 웹에서 바로, 8개국 다국어로 해외 트래픽과 달러 수익을 노리는 글로벌 블로그 자동화 플랫폼입니다.</div>
         <div class="pc-feats"><span>AI 글 자동생성</span><span>실사 이미지 생성</span><span>애드센스 키워드</span><span>미디엄·워드프레스</span><span>구글 블로거·커스텀</span><span>다국어 8개국</span></div>
+        <div class="build-status web">
+          <span class="bdot"></span><span class="btxt">웹 서비스 · 설치 없이 상시 이용</span><span class="bver">🌐 바로 시작</span>
+        </div>
         <div class="dl-row">
           <a class="dl-btn" href="https://www.blogautopro.com" target="_blank" rel="noopener"><span class="ic">🌐</span> 무료로 시작하기 <span class="sub">웹에서 바로 · blogautopro.com</span></a>
         </div>
@@ -567,7 +572,7 @@
       ver.textContent = '';
     }
   }
-  document.querySelectorAll('.build-status').forEach(check);
+  document.querySelectorAll('.build-status[data-repo]').forEach(check);
 })();
 </script>
 </body>
