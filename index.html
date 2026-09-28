@@ -522,49 +522,60 @@
       // a href 다운로드는 그대로 진행(preventDefault 안 함)
     });
   });
-/* ═══ 앱별 빌드 상태 표시 (GitHub Actions API, 서버 없이 클라이언트에서) ═══ */
+/* ═══ 앱별 빌드 상태 + 최신 버전 실시간 표시 (GitHub API, 서버 없이 클라이언트에서) ═══ */
 (function(){
   var CACHE_TTL = 60000;      // 조회 결과 60초 캐시 (rate limit 60/시간 보호)
   var POLL_MS   = 45000;      // 빌드 중일 때만 45초마다 재확인 → 끝나면 초록불
   function relTime(ts){
+    if(!ts) return '';
     var s = (Date.now() - new Date(ts).getTime())/1000;
     if(s < 60) return '방금';
     if(s < 3600) return Math.floor(s/60)+'분 전';
     if(s < 86400) return Math.floor(s/3600)+'시간 전';
     return Math.floor(s/86400)+'일 전';
   }
-  function verOf(msg){ var m = (msg||'').match(/v?(\d+\.\d+\.\d+)/); return m ? ('v'+m[1]) : ''; }
-  async function check(el){
+  function verIn(s){ var m = (s||'').match(/(\d+\.\d+\.\d+)/); return m ? ('v'+m[1]) : ''; }
+  async function getJSON(url, ck, noCache){
+    if(!noCache){ try{ var c = JSON.parse(localStorage.getItem(ck)||'null'); if(c && Date.now()-c.t < CACHE_TTL) return c.d; }catch(e){} }
+    var res = await fetch(url, { headers:{ 'Accept':'application/vnd.github+json' } });
+    if(!res.ok) throw new Error(res.status);
+    var d = await res.json();
+    try{ localStorage.setItem(ck, JSON.stringify({ t:Date.now(), d:d })); }catch(e){}
+    return d;
+  }
+  async function check(el, noCache){
     var repo = el.getAttribute('data-repo');
-    var dot = el.querySelector('.bdot'), txt = el.querySelector('.btxt'), ver = el.querySelector('.bver');
-    var ck = 'bs_'+repo;
+    var txt = el.querySelector('.btxt'), ver = el.querySelector('.bver');
     try{
-      var data = null;
-      try{ var c = JSON.parse(localStorage.getItem(ck)||'null'); if(c && Date.now()-c.t < CACHE_TTL) data = c.d; }catch(e){}
-      if(!data){
-        var res = await fetch('https://api.github.com/repos/'+repo+'/actions/runs?per_page=1', { headers:{ 'Accept':'application/vnd.github+json' } });
-        if(!res.ok) throw new Error(res.status);
-        var j = await res.json();
-        var run = j.workflow_runs && j.workflow_runs[0];
-        if(!run) throw new Error('no run');
-        data = { status:run.status, conclusion:run.conclusion, msg:(run.head_commit&&run.head_commit.message)||'', updated:run.updated_at };
-        try{ localStorage.setItem(ck, JSON.stringify({ t:Date.now(), d:data })); }catch(e){}
-      }
+      // 1) 실제 배포된 최신 버전 = 릴리스 에셋 파일명에서 추출(항상 정확, 4앱 공통)
+      var relVer = '', relTs = '';
+      try{
+        var rel = await getJSON('https://api.github.com/repos/'+repo+'/releases/latest', 'rel_'+repo, noCache);
+        var as = ((rel && rel.assets) || []).slice().sort(function(a,b){ return new Date(b.updated_at) - new Date(a.updated_at); }); // 최신 업로드 순
+        for(var i=0;i<as.length;i++){ var vv = verIn(as[i].name); if(vv){ relVer = vv; relTs = as[i].updated_at; break; } }
+        if(!relTs && as[0]) relTs = as[0].updated_at;
+      }catch(e){}
+      // 2) 현재 빌드 상태 = 최신 워크플로 run
+      var j = await getJSON('https://api.github.com/repos/'+repo+'/actions/runs?per_page=1', 'run_'+repo, noCache);
+      var run = j.workflow_runs && j.workflow_runs[0];
+      if(!run) throw new Error('no run');
+      var status = run.status, conclusion = run.conclusion, commitVer = verIn((run.head_commit&&run.head_commit.message)||'');
+
       el.classList.remove('ready','building','fail');
-      var v = verOf(data.msg);
-      if(data.status !== 'completed'){                    // queued / in_progress
+      if(status !== 'completed'){                          // queued / in_progress
         el.classList.add('building');
-        txt.textContent = '새 버전 빌드 중… 지금은 직전 버전 받기';
-        ver.textContent = v ? (v+' 준비 중') : '';
-        setTimeout(function(){ try{ localStorage.removeItem(ck); }catch(e){} check(el); }, POLL_MS);
-      } else if(data.conclusion === 'success'){
+        txt.textContent = '새 버전 빌드 중…' + (commitVer ? ' '+commitVer : '');
+        ver.textContent = relVer ? ('지금 받기 '+relVer) : '';
+        setTimeout(function(){ check(el, true); }, POLL_MS);   // 폴링 시 캐시 무시
+      } else if(conclusion === 'success'){
         el.classList.add('ready');
-        txt.textContent = '최신 버전 다운로드 준비 완료';
-        ver.textContent = (v ? v+' · ' : '') + '업데이트 '+relTime(data.updated);
-      } else {                                            // failure / cancelled
+        var shown = relVer || commitVer;
+        txt.textContent = '최신 ' + (shown ? shown+' ' : '') + '다운로드 준비 완료';
+        ver.textContent = '업데이트 ' + relTime(relTs || run.updated_at);
+      } else {                                             // failure / cancelled
         el.classList.add('fail');
-        txt.textContent = '최신 빌드 실패 — 직전 버전은 받을 수 있어요';
-        ver.textContent = v;
+        txt.textContent = '최신 빌드 실패 — 직전 ' + (relVer ? relVer+' ' : '') + '받기 가능';
+        ver.textContent = '';
       }
     }catch(e){
       el.classList.remove('ready','building','fail');
@@ -572,7 +583,7 @@
       ver.textContent = '';
     }
   }
-  document.querySelectorAll('.build-status[data-repo]').forEach(check);
+  document.querySelectorAll('.build-status[data-repo]').forEach(function(el){ check(el, false); });
 })();
 </script>
 </body>
