@@ -364,7 +364,7 @@
       <div class="pcard blog" id="card-blog">
         <div class="pc-halo"></div>
         <div class="pc-badge">🌍 해외 블로그 자동화</div>
-        <div class="pc-logo">B</div>
+        <div class="pc-logo" id="bLogo" style="cursor:pointer;user-select:none">B</div>
         <div class="pc-name">BlogAuto Pro <small>블로그오토프로 · 글로벌 자동발행</small></div>
         <div class="pc-tagline">영어 블로그로, 애드센스 달러를 법니다.</div>
         <div class="pc-desc">고클릭 애드센스 키워드를 자동 수집하고, AI가 1,500자 이상 SEO 글과 실사 이미지를 생성해 <b>미디엄·워드프레스·구글 블로거·커스텀 웹사이트</b>까지 예약·원클릭으로 자동 발행합니다. 설치 없이 웹에서 바로, 8개국 다국어로 해외 트래픽과 달러 수익을 노리는 글로벌 블로그 자동화 플랫폼입니다.</div>
@@ -465,32 +465,40 @@
   const v=document.getElementById('introVid'), pp=document.getElementById('pp');
   pp.onclick=()=>{ if(v.paused){v.play();pp.textContent='⏸';}else{v.pause();pp.textContent='▶';} };
 
-  // 🔐 왼쪽 상단 P 로고 7번 탭 → 관리자 컨트롤타워(padmin) 히든 진입
-  const ADMIN_URL='https://padmin.blogautopro.com';
-  const hdrLogo=document.getElementById('hdrLogo'); let taps=0, tapTimer=null;
-  // 로고가 확실히 클릭 받도록 강제(다른 요소에 안 가리게)
-  hdrLogo.style.pointerEvents='auto'; hdrLogo.style.position='relative'; hdrLogo.style.zIndex='60'; hdrLogo.style.cursor='pointer';
-  function tapLogo(){
-    taps++;
-    // 매 탭마다 반응(클릭이 먹히는지 눈으로 바로 확인) — 7번째에 관리자 이동
-    hdrLogo.style.transition='transform .12s'; hdrLogo.style.transform=`scale(${1+taps*0.04}) rotate(${taps*4}deg)`;
-    clearTimeout(tapTimer); tapTimer=setTimeout(()=>{taps=0;hdrLogo.style.transform='';},3000); // 3초 내 연속 탭
-    if(taps>=7){ taps=0; hdrLogo.style.transform=''; window.location.href=ADMIN_URL; }
-  }
-  hdrLogo.addEventListener('click',tapLogo);                                   // 데스크탑
-  hdrLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapLogo(); }); // 모바일(더블탭 줌 방지)
+  // (헤더 왼쪽 상단 P 로고 관리자 진입 기능 제거 — 관리자 진입은 각 제품 카드 로고에서만)
 
-  // 🚦🔐 트래픽 카드 T 로고 7번 탭 → 트래픽 관리자(컨트롤타워 padmin)
-  const tLogo=document.getElementById('tLogo');
-  if(tLogo){ let tTaps=0,tTimer=null;
-    tLogo.style.position='relative'; tLogo.style.zIndex='60'; tLogo.style.cursor='pointer';
-    function tapTLogo(){ tTaps++;
-      tLogo.style.transition='transform .12s'; tLogo.style.transform=`scale(${1+tTaps*0.05}) rotate(${tTaps*5}deg)`;
-      clearTimeout(tTimer); tTimer=setTimeout(()=>{tTaps=0;tLogo.style.transform='';},3000);
-      if(tTaps>=7){ tTaps=0; tLogo.style.transform=''; window.location.href='https://padmin.blogautopro.com'; }
-    }
-    tLogo.addEventListener('click',tapTLogo);
-    tLogo.addEventListener('touchend',(e)=>{ e.preventDefault(); tapTLogo(); });
+  // 🚦🔐 트래픽 카드 T 로고 7번 탭 → 트래픽 관리자(padmin). ★골든시드와 동일 검증패턴(click 하나만·touchend 중복 금지=이중카운트 오작동 방지)
+  const T_ADMIN_URL='https://padmin.blogautopro.com';
+  const tLogo=document.getElementById('tLogo'); let tTaps=0, tTimer=null;
+  if(tLogo){
+    tLogo.style.pointerEvents='auto'; tLogo.style.position='relative'; tLogo.style.zIndex='70';
+    tLogo.style.cursor='pointer'; tLogo.style.touchAction='manipulation'; tLogo.style.webkitTapHighlightColor='transparent';
+    const tapT=(e)=>{
+      if(e){ e.preventDefault(); e.stopPropagation(); }
+      tTaps++;
+      tLogo.style.transition='transform .1s'; tLogo.style.transform=`scale(${1+tTaps*0.05})`;
+      setTimeout(()=>{ if(tTaps<7) tLogo.style.transform='scale(1)'; },110);
+      clearTimeout(tTimer); tTimer=setTimeout(()=>{tTaps=0;tLogo.style.transform='scale(1)';},2500);
+      if(tTaps>=7){ tTaps=0; tLogo.style.transform='scale(1)'; window.location.assign(T_ADMIN_URL); }
+    };
+    tLogo.addEventListener('click',tapT); // click만(모바일도 tap→click 합성). 중복 리스너 금지.
+  }
+
+  // 🌍🔐 블로그오토프로 카드 B 로고 7번 탭 → 관리자. 골든시드와 동일 패턴.
+  const B_ADMIN_URL='https://www.blogautopro.com/admin';
+  const bLogo=document.getElementById('bLogo'); let bTaps=0, bTimer=null;
+  if(bLogo){
+    bLogo.style.pointerEvents='auto'; bLogo.style.position='relative'; bLogo.style.zIndex='70';
+    bLogo.style.cursor='pointer'; bLogo.style.touchAction='manipulation'; bLogo.style.webkitTapHighlightColor='transparent';
+    const tapB=(e)=>{
+      if(e){ e.preventDefault(); e.stopPropagation(); }
+      bTaps++;
+      bLogo.style.transition='transform .1s'; bLogo.style.transform=`scale(${1+bTaps*0.05})`;
+      setTimeout(()=>{ if(bTaps<7) bLogo.style.transform='scale(1)'; },110);
+      clearTimeout(bTimer); bTimer=setTimeout(()=>{bTaps=0;bLogo.style.transform='scale(1)';},2500);
+      if(bTaps>=7){ bTaps=0; bLogo.style.transform='scale(1)'; window.location.assign(B_ADMIN_URL); }
+    };
+    bLogo.addEventListener('click',tapB);
   }
 
   // 🌱🔐 골든시드 카드 C 로고 7번 탭 → 골든시드 관리자 히든 진입
